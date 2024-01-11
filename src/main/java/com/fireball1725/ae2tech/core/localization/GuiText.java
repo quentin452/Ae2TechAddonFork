@@ -19,7 +19,7 @@ public enum GuiText {
     }
 
     public String getUnlocalized() {
-        return this.root + "." + toString();
+        return this.root + "." + this;
     }
 
     public String getLocal() {

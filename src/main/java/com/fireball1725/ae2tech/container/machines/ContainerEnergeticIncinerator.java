@@ -1,9 +1,9 @@
 package com.fireball1725.ae2tech.container.machines;
 
+import appeng.container.slot.SlotRestrictedInput;
 import com.fireball1725.ae2tech.container.BaseContainer;
 import com.fireball1725.ae2tech.container.slot.SlotNormal;
 import com.fireball1725.ae2tech.container.slot.SlotOutput;
-import com.fireball1725.ae2tech.container.slot.SlotRestrictedInput;
 import com.fireball1725.ae2tech.tileentity.machines.TileEntityEnergeticIncinerator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -30,8 +30,8 @@ public class ContainerEnergeticIncinerator extends BaseContainer {
         addSlotToContainer(new SlotOutput(inventory, 1, 8 + 18 * 7, 28));
 
         // Upgrade Slot #1 & #2
-        addSlotToContainer(new SlotRestrictedInput(SlotRestrictedInput.PlaceableItemType.UPGRADES, inventory, 2, 187, 8).setStackLimit(1));
-        addSlotToContainer(new SlotRestrictedInput(SlotRestrictedInput.PlaceableItemType.UPGRADES, inventory, 3, 187, 8 + 18).setStackLimit(1));
+        addSlotToContainer(new SlotRestrictedInput(SlotRestrictedInput.PlacableItemType.UPGRADES, inventory, 2, 187, 8,inventoryPlayer).setStackLimit(1));
+        addSlotToContainer(new SlotRestrictedInput(SlotRestrictedInput.PlacableItemType.UPGRADES, inventory, 3, 187, 8 + 18,inventoryPlayer).setStackLimit(1));
 
         // Bind Player Slots
         bindPlayerInventory(inventoryPlayer, 0, getHeight() - 82);

@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.Collections;
 import java.util.EnumSet;
 
 public class AENetworkHelper implements IGridBlock {
@@ -171,17 +172,18 @@ public class AENetworkHelper implements IGridBlock {
         return this.gridFlags;
     }
 
+    @Override
+    public boolean isWorldAccessible() {
+        return this.worldNode;
+    }
+
     public void setFlags(GridFlags... requireChannel) {
         EnumSet<GridFlags> flags = EnumSet.noneOf(GridFlags.class);
-        for (GridFlags gridFlags : requireChannel) {
-            flags.add(gridFlags);
-        }
+        Collections.addAll(flags, requireChannel);
         this.gridFlags = flags;
     }
 
-    public boolean isWorldAccessable() {
-        return this.worldNode;
-    }
+
 
     public IGrid getGrid() throws Exception {
         if (this.iGridNode == null) {
@@ -199,7 +201,7 @@ public class AENetworkHelper implements IGridBlock {
         if (iGrid == null) {
             throw new Exception();
         }
-        IEnergyGrid iEnergyGrid = (IEnergyGrid) iGrid.getCache(IEnergyGrid.class);
+        IEnergyGrid iEnergyGrid = iGrid.getCache(IEnergyGrid.class);
         if (iEnergyGrid == null) {
             throw new Exception();
         }
@@ -211,7 +213,7 @@ public class AENetworkHelper implements IGridBlock {
         if (iGrid == null) {
             throw new Exception();
         }
-        IPathingGrid iPathingGrid = (IPathingGrid) iGrid.getCache(IPathingGrid.class);
+        IPathingGrid iPathingGrid = iGrid.getCache(IPathingGrid.class);
         if (iPathingGrid == null) {
             throw new Exception();
         }
@@ -235,7 +237,7 @@ public class AENetworkHelper implements IGridBlock {
         if (iGrid == null) {
             throw new Exception();
         }
-        IStorageGrid iStorageGrid = (IStorageGrid) iGrid.getCache(IStorageGrid.class);
+        IStorageGrid iStorageGrid = iGrid.getCache(IStorageGrid.class);
         if (iStorageGrid == null) {
             throw new Exception();
         }
@@ -247,7 +249,7 @@ public class AENetworkHelper implements IGridBlock {
         if (iGrid == null) {
             throw new Exception();
         }
-        ISecurityGrid iSecurityGrid = (ISecurityGrid) iGrid.getCache(ISecurityGrid.class);
+        ISecurityGrid iSecurityGrid = iGrid.getCache(ISecurityGrid.class);
         if (iSecurityGrid == null) {
             throw new Exception();
         }

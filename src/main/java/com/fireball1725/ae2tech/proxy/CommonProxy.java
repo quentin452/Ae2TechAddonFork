@@ -38,7 +38,7 @@ public abstract class CommonProxy implements IProxy {
         //} else {
         recipeHandler.parseRecipes(new InternalRecipeLoader(), "main.recipe");
         //}
-        recipeHandler.registerHandlers();
+        recipeHandler.injectRecipes();
     }
 
     public void registerEvents() {

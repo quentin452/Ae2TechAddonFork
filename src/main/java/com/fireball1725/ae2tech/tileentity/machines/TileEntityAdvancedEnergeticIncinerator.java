@@ -143,7 +143,7 @@ public class TileEntityAdvancedEnergeticIncinerator extends TileEntity implement
     }
 
     @Override
-    public boolean isWorldAccessable() {
+    public boolean isWorldAccessible() {
         return true;
     }
 

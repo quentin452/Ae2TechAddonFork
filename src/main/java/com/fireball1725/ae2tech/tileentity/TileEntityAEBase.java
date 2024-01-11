@@ -71,18 +71,6 @@ public class TileEntityAEBase extends TileEntity implements IOrientable, ICommon
         }
     }
 
-    public void getDrops(World w, int x, int y, int z, ArrayList<ItemStack> drops) {
-        if ((this instanceof IInventory)) {
-            IInventory inventory = (IInventory) this;
-            for (int l = 0; l < inventory.getSizeInventory(); l++) {
-                ItemStack itemStack = inventory.getStackInSlot(l);
-                if (itemStack != null) {
-                    drops.add(itemStack);
-                }
-            }
-        }
-    }
-
     protected ItemStack getItemFromTile(Object object) {
         ItemStackSrc itemStackSrc = (ItemStackSrc) myItem.get(object.getClass());
         if (itemStackSrc == null) {
@@ -281,5 +269,18 @@ public class TileEntityAEBase extends TileEntity implements IOrientable, ICommon
 
     public boolean requiresTESR() {
         return false;
+    }
+
+    @Override
+    public void getDrops(World world, int i, int i1, int i2, List<ItemStack> list) {
+        if ((this instanceof IInventory)) {
+            IInventory inventory = (IInventory) this;
+            for (int l = 0; l < inventory.getSizeInventory(); l++) {
+                ItemStack itemStack = inventory.getStackInSlot(l);
+                if (itemStack != null) {
+                    list.add(itemStack);
+                }
+            }
+        }
     }
 }
