@@ -1,0 +1,6 @@
+alias=mc -> minecraft
+alias=tech -> ae2tech
+alias=ae2 -> appliedenergistics2
+
+import=machines.recipe
+import=upgradecards.recipe

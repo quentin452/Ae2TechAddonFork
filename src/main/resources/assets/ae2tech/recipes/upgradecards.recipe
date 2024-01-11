@@ -1,0 +1,29 @@
+shaped=
+    _ mc:redstone _,
+    mc:redstone ae2:ItemMaterial.CardSpeed mc:redstone,
+    _ mc:redstone _
+    -> 4 tech:card.machineperfupgrade
+
+shaped=
+    _ mc:iron_ingot _,
+    mc:iron_ingot tech:card.machineperfupgrade:0 mc:iron_ingot,
+    _ mc:iron_ingot _,
+    -> tech:card.machineperfupgrade:1
+
+shaped=
+    _ mc:gold_ingot _,
+    mc:gold_ingot tech:card.machineperfupgrade:1 mc:gold_ingot,
+    _ mc:gold_ingot _,
+    -> tech:card.machineperfupgrade:2
+
+shaped=
+    _ mc:diamond _,
+    mc:diamond tech:card.machineperfupgrade:2 mc:diamond,
+    _ mc:diamond _,
+    -> tech:card.machineperfupgrade:3
+
+shaped=
+    _ mc:emerald _,
+    mc:emerald tech:card.machineperfupgrade:3 mc:emerald,
+    _ mc:emerald _,
+    -> tech:card.machineperfupgrade:4

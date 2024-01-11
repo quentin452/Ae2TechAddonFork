@@ -1,0 +1,10 @@
+gui.ae2tech.EnergeticIncinerator=Incinerador Enérgico
+
+tile.ae2tech.machine.energeticincinerator.name=Incinerador Enérgico
+
+item.ae2tech:performanceUpgrade.redstone.name=Tarjeta de Mejora de Funcionamiento (Redstone)
+item.ae2tech:performanceUpgrade.iron.name=Tarjeta de Mejora de Funcionamiento (Hierro)
+item.ae2tech:performanceUpgrade.gold.name=Tarjeta de Mejora de Funcionamiento (Oro)
+item.ae2tech:performanceUpgrade.diamond.name=Tarjeta de Mejora de Funcionamiento (Diamante)
+item.ae2tech:performanceUpgrade.emerald.name=Tarjeta de Mejora de Funcionamiento (Esmeralda)
+item.ae2tech:performanceUpgrade.creative.name=Tarjeta de Mejora de Funcionamiento (Creativo)

@@ -1,0 +1,10 @@
+gui.ae2tech.EnergeticIncinerator=Energetic Incinerator
+
+tile.ae2tech.machine.energeticincinerator.name=Energetic Incinerator
+
+item.ae2tech:performanceUpgrade.redstone.name=Performance Upgrade Card (Redstone)
+item.ae2tech:performanceUpgrade.iron.name=Performance Upgrade Card (Iron)
+item.ae2tech:performanceUpgrade.gold.name=Performance Upgrade Card (Gold)
+item.ae2tech:performanceUpgrade.diamond.name=Performance Upgrade Card (Diamond)
+item.ae2tech:performanceUpgrade.emerald.name=Performance Upgrade Card (Emerald)
+item.ae2tech:performanceUpgrade.creative.name=Performance Upgrade Card (Creative Spawned)

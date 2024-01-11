@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ae2tech",
+  "name": "AE2 Tech Add-On",
+  "description": "Machine Add-On Mod for AE2",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["FireBall1725"],
+  "credits": "Thanks to Algo for allowing me to make an add-on to AE2",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

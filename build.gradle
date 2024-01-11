@@ -1,0 +1,133 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'org.pegdown:pegdown:1.4.1'
+    }
+}
+
+import org.pegdown.PegDownProcessor
+import groovy.text.SimpleTemplateEngine
+
+repositories {
+    maven { // The repo from which to get waila
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
+    }
+    maven {
+        name = "chickenbones"
+        url = "http://chickenbones.net/maven"
+    }
+}
+
+apply plugin: 'forge'
+apply plugin: 'java'
+
+ext.configFile = file "build.properties"
+
+configFile.withReader {
+    // read config.  it shall from now on be referenced as simply config or as project.config
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
+def buildversion = '0'
+
+if (hasProperty("teamcity")) {
+    buildversion = teamcity["build.number"]
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_6
+targetCompatibility = JavaVersion.VERSION_1_6
+
+version = "${config.mod_version}"
+group= "com.fireball1725.ae2techaddon" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "AE2TechAddOn"
+
+minecraft {
+    version = "${config.minecraft_version}-${config.forge_version}"
+    assetDir = "eclipse/assets"
+
+    replaceIn "lib/Reference.java"
+    replace "@VERSION@", "${config.mod_version}-b"+buildversion
+    replace "@BUILDNUMBER@", buildversion
+    
+    replaceIn "AE2Tech.java"
+    replace "@DEBUG@", "somethingthatisnot-@DEBUG@"
+}
+
+version = "${config.minecraft_version}-"+version+"-b"+buildversion
+
+sourceSets {
+    api {
+        java {
+            exclude '**/layers/**'
+            exclude '**/integration/**'
+        }
+    }
+}
+
+dependencies {
+    compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
+    compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.ccc_version}:dev"
+    compile "codechicken:NotEnoughItems:${config.minecraft_version}-${config.NEI_version}:dev"
+    compile "mcp.mobius.waila:Waila:${config.waila_version}"
+}
+
+processResources
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.info'
+        include '**/*.lang'
+        include '**/*.properties'
+        include '**/*.recipe'
+
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '**/*.info'
+        exclude '**/*.lang'
+        exclude '**/*.properties'
+        exclude '**/*.recipe'
+    }
+}
+
+//Add universal identifier to jar name
+jar {
+    classifier = 'universal'
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'source'
+}
+
+artifacts {
+    archives deobfJar
+}
+
+build.dependsOn sourceJar

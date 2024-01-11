@@ -1,0 +1,10 @@
+group=ae2:ItemMaterial.EngProcessor -> engProcessor
+group=ae2:ItemMaterial.LogicProcessor -> logProcessor
+group=ae2:ItemMaterial.CalcProcessor -> calcProcessor
+group=ae2:ItemMaterial.CertusQuartzCrystalCharged -> chargedCrystal
+
+shaped=
+        chargedCrystal logProcessor chargedCrystal,
+        ae2:CableGlass mc:furnace ae2:CableGlass,
+       chargedCrystal logProcessor chargedCrystal
+        -> tech:tile.machine.energeticincinerator
