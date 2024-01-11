@@ -8,13 +8,18 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class TickHandler {
     public static final TickHandler instance = new TickHandler();
-    private final Queue<Callable> callQueue = new LinkedList();
+    private final Queue<Callable> callQueue = new LinkedList<>();
     private final HandlerRep server = new HandlerRep();
     private final HandlerRep client = new HandlerRep();
 
@@ -51,15 +56,22 @@ public class TickHandler {
 
     @SubscribeEvent
     public void onTick(TickEvent event) {
-        if ((event.type == TickEvent.Type.SERVER) && (event.phase == TickEvent.Phase.END)) {
+        if (event.type == TickEvent.Type.SERVER && event.phase == TickEvent.Phase.END) {
             HandlerRep repo = getRepo();
-            while (!repo.tiles.isEmpty()) {
-                LogHelper.debug("TileEntityAEBase found, marking as ready...");
-                TileEntityAEBase tileEntityAEBase = (TileEntityAEBase) repo.tiles.poll();
-                tileEntityAEBase.onReady();
+
+            if (!repo.tiles.isEmpty()) {
+                LogHelper.debug("Processing TileEntityAEBase batch...");
+
+                List<TileEntityAEBase> batch = new ArrayList<>();
+                repo.tiles.drainTo(batch);
+
+                for (TileEntityAEBase tileEntityAEBase : batch) {
+                    tileEntityAEBase.onReady();
+                }
             }
-            Callable c = null;
-            while ((c = (Callable) this.callQueue.poll()) != null) {
+
+            Callable c;
+            while ((c = this.callQueue.poll()) != null) {
                 try {
                     c.call();
                 } catch (Exception e) {
@@ -69,14 +81,15 @@ public class TickHandler {
         }
     }
 
+
     class HandlerRep {
-        public Queue<TileEntityAEBase> tiles = new LinkedList();
+        public BlockingQueue<TileEntityAEBase> tiles = new LinkedBlockingQueue<>();
 
         HandlerRep() {
         }
 
         public void clear() {
-            this.tiles = new LinkedList();
+            this.tiles.clear();
         }
     }
 }
